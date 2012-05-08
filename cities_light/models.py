@@ -2,7 +2,7 @@ import unicodedata
 
 from django.utils.encoding import force_unicode
 from django.db.models import signals
-from django.db import models
+from django.contrib.gis.db import models
 from django.template import defaultfilters
 from django.utils.translation import ugettext as _
 
@@ -56,6 +56,9 @@ class City(models.Model):
     
     geoname_id = models.IntegerField(null=True, blank=True)
     country = models.ForeignKey(Country)
+    location = models.PointField()
+
+    objects = models.GeoManager()
 
     class Meta:
         unique_together = (('country', 'name'),)
